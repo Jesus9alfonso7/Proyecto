@@ -1,0 +1,122 @@
+body{
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+}
+a{
+    text-decoration: none;
+    color: #6ead07;
+}
+a:hover{
+    flex-grow: 1;
+    color: coral;
+    text-decoration: underline;
+}
+
+
+ul{
+    list-style: none;
+}
+
+
+.imgContainer{
+    background-color: coral;
+    text-align: center;
+}
+nav{
+    background-color: #fde3cb;
+   
+}
+
+.navbar{
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+.navbar > li{
+    flex-grow: 1;
+    text-align: center;
+    background-color: #fde3cb;
+}
+
+
+.socials{
+    border-top: 3px solid rgb(231, 231, 231);
+    padding-top: 13px;
+    height: 60px;
+    background-color: rgba(255, 128, 55, 0.808);
+    display: flex;
+    justify-content: space-around;
+}
+
+.opciones{
+    background-color: rgba(70, 43, 36, 0.966);
+    display: flex;
+    justify-content: space-around;
+    color: white;
+}
+
+.opciones > p{
+    padding: 10px;
+    flex-grow: 1;
+    border-right: 1px solid rgb(163, 163, 163);
+    text-align: center;
+}
+
+.newDish{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+#description{
+    margin-bottom: 10px;
+}
+
+
+#registroTitle{
+
+    text-align: center;
+}
+
+.registro{
+    margin: auto;
+    margin-top: 20px;
+    border: 1px solid black;
+    width: 800px;
+    padding: 20px 20px 20px 20px;
+}
+
+.menu{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    width: 840px;
+    border: 1px solid black;
+    align-items: center;
+    align-self: center;
+}
+
+.dish{
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 10px;
+    width: 80%;
+    border: solid 1px black;
+}
+
+.foodImg{
+    padding: 20px 20px 20px 20px;
+}
+
+.content{
+    flex-grow: 1;
+    width: auto;
+}
+
+.descriptionText{
+    width: 300px;
+}

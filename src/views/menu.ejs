@@ -1,0 +1,34 @@
+<%- include ("./partials/_header") %>
+
+
+
+
+<div class="menu"> 
+    <h1 id="menuTitle">Menu</h1>
+    <% for (var i =0; i < foods.length; i++)  {     %>
+
+        <div class="dish">
+            <img src="img/logo.png" alt="logo" height="150" class="foodImg">
+            <div class="content">
+                <strong><%= foods[i].name %></strong> 
+                <p>Precio: <%= foods[i].price %> $</p> 
+                <p>Calorias: <%= foods[i].calories %></p> 
+                <p>Proteinas: <%= foods[i].protein %></p> 
+                <p>Grasas: <%= foods[i].fat %></p> 
+            </div>
+            <p class="descriptionText"><%= foods[i].description %></p>
+        </div>    
+
+
+        <%  }  %> 
+</div>
+
+
+
+
+
+
+
+
+
+<%- include ("./partials/_footer") %>

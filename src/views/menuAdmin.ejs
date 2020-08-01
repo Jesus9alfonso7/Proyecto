@@ -1,0 +1,97 @@
+<%- include ("./partials/_headerAdmin") %>
+<div class="registro">
+    <h1 id="registroTitle">Registra nuevo platillo</h1>
+    <form class="newDish" method="POST" action="/newDish">
+        <div class="inputs">
+            <label for="dish" >Platillo:</label>
+            <input type="dish" id="dish" name="dish"  placeholder="Sopa de hongos">
+            <label for="price" >Precio:</label>
+            <input type="price" id="price" name="price"  placeholder="49.99">
+        </div>
+        <label for="description" >Descripcion: </label>
+        <textarea type="description" id="description" name="description" id="description" rows="5" > </textarea>
+        <button  type="submit" class="addDish">Registrar</button>
+    </form>
+</div>
+
+
+   
+    <div class="menu"> 
+        <h1 id="menuTitle">Menu</h1>
+        <% for (var i =0; i < foods.length; i++)  {     %>
+
+            <div class="dish">
+                <img src="img/logo.png" alt="logo" height="150" class="foodImg">
+                <div class="content">
+                    <strong><%= foods[i].name %></strong> 
+                    <p>Precio: <%= foods[i].price %> $</p> 
+                    <p>Calorias: <%= foods[i].calories %></p> 
+                    <p>Proteinas: <%= foods[i].protein %></p> 
+                    <p>Grasas: <%= foods[i].fat %></p> 
+                </div>
+                <p class="descriptionText"><%= foods[i].description %></p>
+            </div>    
+
+
+            <%  }  %> 
+    </div>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script>
+
+    function addFood(food){
+        let k =     '{  "name" : "'+ food.label + '",' +
+                    '"price": ' + $('#price').val()+',' + 
+                    '"calories": ' + (Math.round((food.nutrients.ENERC_KCAL) * 100) / 100).toFixed(2) + ',' +
+                    '"protein" : '+ (Math.round((food.nutrients.PROCNT) * 100) / 100).toFixed(2) + ', ' +
+                    '"fat" : ' + (Math.round((food.nutrients.FAT) * 100) / 100).toFixed(2) + ',' +
+                    '"description" : "' + $('#description').val() + '"}';
+                    
+                    $.ajax({
+                    url : '/newDish' ,
+                    method : 'POST',
+                    contentType: 'application/json',
+                        data: k,
+                    success : function (responseJSON) { 
+                    },
+                    error : function(err){
+                        console.log(err);
+                    }
+                    });
+        }
+
+        $('.addDish').on('click', function(event){
+            event.preventDefault();
+            let search = $('#dish').val();
+            let url = "https://api.edamam.com/api/food-database/parser?ingr="+ search+"&app_id=8b6fdcb4&app_key=c62c55ca66c96e5a829eba67ab76a3f5";
+            $.ajax({
+            url : url,
+            method : "GET",
+            dataType : "json",
+            success : function( responseJSON ){
+            console.log(responseJSON);
+            addFood(responseJSON.hints[0].food);
+            
+            },
+            error : function( err ){
+                console.log( err );
+            }
+            });
+            $('.registro').css('display','block');
+            $('.buscarA').css('display','none');
+
+        });
+</script>
+
+
+
+
+
+
+
+
+
+
+
+<%- include ("./partials/_footer") %>
