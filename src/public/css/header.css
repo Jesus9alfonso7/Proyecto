@@ -4,10 +4,13 @@ body{
     margin: 0;
     padding: 0;
 }
-a{
+li > a{
     text-decoration: none;
     color: #6ead07;
+   
 }
+
+
 a:hover{
     flex-grow: 1;
     color: coral;
@@ -26,25 +29,29 @@ ul{
 }
 nav{
     background-color: #fde3cb;
-   
+    height: 50px;
 }
 
 .navbar{
-
     display: flex;
     flex-direction: row;
     justify-content: space-around;
+    height: auto;
+    font-size: 17px;
 }
 .navbar > li{
     flex-grow: 1;
     text-align: center;
     background-color: #fde3cb;
+    padding: 10px 0;
 }
 
 
 .socials{
+    margin-top: 0;
     border-top: 3px solid rgb(231, 231, 231);
     padding-top: 13px;
+    padding-bottom: 50px;
     height: 60px;
     background-color: rgba(255, 128, 55, 0.808);
     display: flex;
@@ -52,13 +59,16 @@ nav{
 }
 
 .opciones{
-    background-color: rgba(70, 43, 36, 0.966);
+    background-color: rgb(253, 105, 51);
     display: flex;
     justify-content: space-around;
     color: white;
+    font-size: 13px;
 }
 
-.opciones > p{
+.opciones > a{
+    text-decoration: none;
+    color: white;
     padding: 10px;
     flex-grow: 1;
     border-right: 1px solid rgb(163, 163, 163);
@@ -71,6 +81,21 @@ nav{
     flex-direction: column;
 }
 
+.inputs{
+    display: flex;
+    width: auto;
+}
+
+.dishInput{
+    display: flex;
+    flex-grow: 1;
+    padding: 0px 10px 10px 0px;
+}
+.dishInput > input{
+    margin-left: 5px;
+    flex-grow: 1;
+}
+
 #description{
     margin-bottom: 10px;
 }
@@ -81,42 +106,141 @@ nav{
     text-align: center;
 }
 
+.registros{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+
 .registro{
     margin: auto;
     margin-top: 20px;
-    border: 1px solid black;
-    width: 800px;
+    border: 2px solid rgb(99, 99, 99);
+    border-radius: 25px;
+    width: auto;
+    min-width: 400px;
     padding: 20px 20px 20px 20px;
+    
+}
+
+.elimina{
+    margin: auto;
+    margin-top: 20px;
+    border: 2px solid rgb(99, 99, 99);
+    border-radius: 25px;
+    width: auto;
+    min-width: 400px;
+    padding: 20px 20px 20px 20px;
+    
 }
 
 .menu{
     margin-top: 20px;
     margin-bottom: 20px;
     display: flex;
-    flex-direction: column;
-    width: 840px;
-    border: 1px solid black;
-    align-items: center;
+    flex-direction: row;
+    width: 95%;
     align-self: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    font-size: 17px;
+    background-color: rgb(247, 247, 247);
+    
 }
+#menuTitle{
+    align-self: center; 
+}
+
 
 .dish{
     display: flex;
     flex-direction: row;
-    margin-bottom: 10px;
-    width: 80%;
-    border: solid 1px black;
+    margin-top: 10px;
+    margin-left: 10px;
+    width: 45%;
+    min-width: 400px;
 }
 
 .foodImg{
-    padding: 20px 20px 20px 20px;
+    padding: 0px 10px 10px 0px;
 }
 
 .content{
     flex-grow: 1;
     width: auto;
 }
+.homeContainer{
+    display: flex;
+    flex-direction: column;
+}
+.imgFood{
+    width: 50%;
+}
 
+
+.contentDiv{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.contentP{
+    padding: 150px 100px 0px 100px;
+    text-align: center;
+    font-size: 20px;
+   background-color: rgb(255, 238, 221);
+   color: rgb(90, 33, 0);
+    
+}
+
+.imageContainer{
+    height: 400px;
+    width: auto;
+    background-image: url("../img/pizza.jpg");
+    background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+    border: 1px solid black;
+}
+.content > strong{
+    font-family: Impact, Charcoal, sans-serif;
+    font-size: 20px;
+}
 .descriptionText{
     width: 300px;
+    text-align: justify;
 }
+
+#iniciarSesion{
+    padding-top: 0px;
+    position: absolute;
+    top: 0px;
+    right: 1px;
+    
+}
+
+#iniciarSesion:hover{
+    color:#6ead07;
+}
+
+.hrMenu {
+    border: 0;
+    clear:both;
+    display:block;               
+    height: 10px;
+	border: 0;
+    box-shadow: 0 -10px 10px -10px #8c8b8b inset;
+    margin: 0;
+  }
+
+  .hrFooter {
+    border: 0;
+    clear:both;
+    display:block;               
+    height: 10px;
+	border: 0;
+    box-shadow: 0 10px 10px -10px #8c8b8b inset;
+    margin: 0;
+    margin-bottom: 10px;
+  }

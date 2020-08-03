@@ -8,7 +8,8 @@ const FoodSchema  = Schema ({
     calories: Number,
     protein: Number,
     fat: Number,
-    description: String
+    img: String,
+    description: String,
 });
 
 module.exports = mongoose.model('food',FoodSchema);

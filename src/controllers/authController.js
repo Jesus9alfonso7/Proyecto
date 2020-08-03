@@ -9,6 +9,8 @@ const verifyToken = require("./verifyToken");
 const path = require("path");
 const cookieParser = require("cookie-parser");
 
+
+//AIzaSyDSnK-FHq-0zFgAw9iAK-g07WLS3pfNqqE
 //let url = "https://api.edamam.com/api/food-database/parser?ingr="+ search+"&app_id=8b6fdcb4&app_key=c62c55ca66c96e5a829eba67ab76a3f5";
 // Para que el usuario se registre
 router.post("/signup",async (req,res,next)=>{
@@ -39,7 +41,6 @@ router.post("/signin",async (req,res,next)=>{
     console.log(email,password)
     if (!user){
         res.redirect('/admin')
-        //return res.status(404).send("The user does not exist")
     }
     else {
       const valid =  await user.validatePassword(password)
@@ -52,7 +53,7 @@ router.post("/signin",async (req,res,next)=>{
         })
         res.cookie('token', token , {
             httpOnly:true,
-            maxAge: 30000
+            maxAge: 3000000
         })
      res.redirect('/menuAdmin')
 
@@ -62,23 +63,34 @@ router.post("/signin",async (req,res,next)=>{
 })
 
 router.post("/newDish",async (req,res,next)=>{
-    console.log(req.body);
-    const {name,price,calories, protein,fat, description} = req.body;
+
+    const {name,price,calories, protein,fat, description, img} = req.body;
    
     const food = new Food({
        name:name,
        price:price,
        calories: calories,
        protein: protein,
-       fat: fat, 
-       description: description
+       fat: fat,
+       img: img,
+       description: description,
    });
  await food.save();
 
    res.redirect('/menuAdmin')
 })
 
-
+router.post("/deleteDish", (req,res,next)=>{
+    console.log(req.body);
+    console.log("asd");
+    Food.findOneAndRemove({name: req.body.dish}).then(response => {
+        console.log(response)
+    })
+    .catch(err =>{
+        console.error(err)
+    })
+   res.redirect('/menuAdmin')
+})
 
 router.get("/profile",verifyToken, async (req,res,next)=>{
      
@@ -140,7 +152,7 @@ router.get("/register",(req,res)=>{
     res.render('register');
     
 })
-
+//Food.find({price:23});
 router.get("/menuAdmin",verifyToken, async (req,res)=>{
     const foods = await Food.find();
     res.render('menuAdmin', {foods});

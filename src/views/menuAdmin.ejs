@@ -1,29 +1,50 @@
 <%- include ("./partials/_headerAdmin") %>
-<div class="registro">
-    <h1 id="registroTitle">Registra nuevo platillo</h1>
-    <form class="newDish" method="POST" action="/newDish">
-        <div class="inputs">
-            <label for="dish" >Platillo:</label>
-            <input type="dish" id="dish" name="dish"  placeholder="Sopa de hongos">
-            <label for="price" >Precio:</label>
-            <input type="price" id="price" name="price"  placeholder="49.99">
-        </div>
-        <label for="description" >Descripcion: </label>
-        <textarea type="description" id="description" name="description" id="description" rows="5" > </textarea>
-        <button  type="submit" class="addDish">Registrar</button>
-    </form>
+<div class="registros">
+    <div class="registro">
+        <h1 id="registroTitle">Registra nuevo platillo</h1>
+        <form class="newDish" method="POST" action="/newDish">
+            <div class="inputs">
+                <div class="dishInput">
+                <label for="dish" >Platillo:</label>
+                <input type="dish" id="dish" name="dish"  placeholder="Sopa de hongos" class="form-control">
+                </div>
+                <div class="dishInput">
+                <label for="price" >Precio:</label>
+                <input type="price" id="price" name="price"  placeholder="49.99" class="form-control">   
+                </div>
+            </div>
+            <label for="description" >Descripcion: </label>
+            <textarea type="description" id="description" name="description" id="description" rows="5" class="form-control"> </textarea>
+            <button  type="submit" class="addDish btn-primary btn-lg" >Registrar</button>
+        </form>
+    </div>
+
+    <div class="elimina" >
+        <h1 id="registroTitle">Elimina comida</h1>
+        <form class="newDish" method="POST" action="/deleteDish">
+            <div class="inputs">
+                <div class="dishInput">
+                <label for="dish" >Nombre del platillo:</label>
+                <input type="dish" id="dish" name="dish"  placeholder="Sopa de hongos" class="form-control">
+                </div>
+            </div>
+            <button  type="submit" class="btn-danger btn-lg" >Eliminar</button>
+        </form>
+    </div>
 </div>
 
 
-   
+   <h1 id="menuTitle">Menu</h1>
+   <hr class="hrMenu">
     <div class="menu"> 
-        <h1 id="menuTitle">Menu</h1>
+        
         <% for (var i =0; i < foods.length; i++)  {     %>
-
+                
             <div class="dish">
-                <img src="img/logo.png" alt="logo" height="150" class="foodImg">
+                <img src=' <%= foods[i].img %> ' alt="logo"  height="200" width="200" class="foodImg">
                 <div class="content">
                     <strong><%= foods[i].name %></strong> 
+                    <p></p>
                     <p>Precio: <%= foods[i].price %> $</p> 
                     <p>Calorias: <%= foods[i].calories %></p> 
                     <p>Proteinas: <%= foods[i].protein %></p> 
@@ -31,23 +52,43 @@
                 </div>
                 <p class="descriptionText"><%= foods[i].description %></p>
             </div>    
-
-
-            <%  }  %> 
+        <%  }  %> 
     </div>
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script>
 
-    function addFood(food){
+   async function addFood(food){
+        var imgResult = "";
+        var url = `https://southcentralus.api.cognitive.microsoft.com/bing/v7.0/images/search?q=${food.label}`;
+                    await $.ajax({
+                        url: url,
+                        headers: {
+                        'Ocp-Apim-Subscription-Key':'52a693909285419dbf5d8c622de62a11'},
+                        type: 'GET',
+                        accepts: "application/json",
+                        crossDomain: true,
+                        success: function (result) {
+                            // process result
+                            imgResult = result.value[0].thumbnailUrl;
+                            console.log(imgResult);
+                        },
+                        error: function (e) {
+                            // log error in browser
+                            console.log(e.message);
+                        }
+                    });
+                   await console.log(imgResult);
+
         let k =     '{  "name" : "'+ food.label + '",' +
                     '"price": ' + $('#price').val()+',' + 
                     '"calories": ' + (Math.round((food.nutrients.ENERC_KCAL) * 100) / 100).toFixed(2) + ',' +
                     '"protein" : '+ (Math.round((food.nutrients.PROCNT) * 100) / 100).toFixed(2) + ', ' +
                     '"fat" : ' + (Math.round((food.nutrients.FAT) * 100) / 100).toFixed(2) + ',' +
+                    '"img" : "' + imgResult + '",' +
                     '"description" : "' + $('#description').val() + '"}';
-                    
+
                     $.ajax({
                     url : '/newDish' ,
                     method : 'POST',
@@ -59,12 +100,13 @@
                         console.log(err);
                     }
                     });
+                   location.reload();
         }
 
         $('.addDish').on('click', function(event){
             event.preventDefault();
             let search = $('#dish').val();
-            let url = "https://api.edamam.com/api/food-database/parser?ingr="+ search+"&app_id=8b6fdcb4&app_key=c62c55ca66c96e5a829eba67ab76a3f5";
+            let url = "https://api.edamam.com/api/food-database/parser?ingr="+ encodeURIComponent(search) +"&app_id=8b6fdcb4&app_key=c62c55ca66c96e5a829eba67ab76a3f5";
             $.ajax({
             url : url,
             method : "GET",
@@ -78,20 +120,30 @@
                 console.log( err );
             }
             });
-            $('.registro').css('display','block');
-            $('.buscarA').css('display','none');
+
+
 
         });
+
+        function bingImg(){
+        var url = `https://southcentralus.api.cognitive.microsoft.com/bing/v7.0/images/search?q=soup`;
+         $.ajax({
+            url: url,
+            headers: {
+            'Ocp-Apim-Subscription-Key':'52a693909285419dbf5d8c622de62a11'},
+            type: 'GET',
+            accepts: "application/json",
+            crossDomain: true,
+            success: function (result) {
+                // process result
+                console.log(result);
+            },
+            error: function (e) {
+                // log error in browser
+                console.log(e.message);
+            }
+        });
+}   
 </script>
-
-
-
-
-
-
-
-
-
-
 
 <%- include ("./partials/_footer") %>
