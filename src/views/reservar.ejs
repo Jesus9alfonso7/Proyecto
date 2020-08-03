@@ -1,16 +1,107 @@
 <%- include ("./partials/_header") %>
 
+<!-- Special version of Bootstrap that only affects content wrapped in .bootstrap-iso -->
+<link rel="stylesheet" href="https://formden.com/static/cdn/bootstrap-iso.css" /> 
+
+<!--Font Awesome (added because you use icons in your prepend/append)-->
+<link rel="stylesheet" href="https://formden.com/static/cdn/font-awesome/4.4.0/css/font-awesome.min.css" />
+
+<!-- Inline CSS based on choices in "Settings" tab -->
+<style>.bootstrap-iso .formden_header h2, .bootstrap-iso .formden_header p, .bootstrap-iso form{font-family: Arial, Helvetica, sans-serif; color: black}.bootstrap-iso form button, .bootstrap-iso form button:hover{color: white !important;} .asteriskField{color: red;}</style>
+
+
+<!-- HTML Form (wrapped in a .bootstrap-iso div) -->
+<div class="registroReserva">
+    <h1 id="registroTitle">Reserva mesa</h1>
+    <div class="bootstrap-iso">
+     <div class="container-fluid">
+      <div class="row">
+       <div class="col-md-6 col-sm-6 col-xs-12">
+        <form class="nuevaReservacion" method="POST" action="/nuevaReserva">
+         <div class="form-group ">
+          <label class="control-label " for="date">
+           Date
+          </label>
+          <div class="input-group">
+           <div class="input-group-addon">
+            <i class="fa fa-calendar">
+            </i>
+           </div>
+           <input class="form-control" id="date" name="date" placeholder="MM/DD/YYYY" type="text"/>
+          </div>
+         </div>
+         <div class="form-group">
+         </div>
+         <div class="#">
+            <label for="Hora" >Hora:</label>
+            <select type="text" id="horaReserva" name="horaReserva"  placeholder="Hora">
+                <option value="10:00">10:00</option>
+                <option value="10:30">10:30</option>
+                <option value="11:00">11:00</option>
+                <option value="11:30">11:30</option>
+                <option value="12:00">12:00</option>
+                <option value="12:30">12:30</option>
+                <option value="13:00">13:00</option>
+                <option value="13:30">13:30</option>
+                <option value="14:00">14:00</option>
+                <option value="14:30">14:30</option>
+                <option value="15:00">15:00</option>
+                <option value="15:30">15:30</option>
+            </select>
+
+            <label for="nombrePersona" >Nombre:</label>
+            <input type="text" id="nombrePersona" name="nombrePersona"  placeholder="Nombre">
+            
+
+            <label for="apellidoPersona" >Apellido:</label>
+            <input type="text" id="apellidoPersona" name="apellidoPersona"  placeholder="Apellido">
+            <p></p>
+
+            <label for="numeroPersonas" >Numero de Personas:</label>
+            <input type="number" id="numeroPersonas" name="numeroPersonas" placeholder="3">
+
+            <label for="telefono" >Numero de Telefono:</label>
+            <input type="tel" id="telefono" name="telefono"  placeholder="12345678" pattern="[0-9]{3}[0-9]{2}[0-9]{3}" required>
+            <p></p>
+
+            <label for="correo" >Email:</label>
+            <input type="email" id="correo" name="correo"  placeholder="example@example">
+        </div>
+        <div></div>
+        
+        <button  type="submit" class="agregarReserva">Registrar</button>
+        </form>
+       </div>
+      </div>
+     </div>
+    </div>
+    </div>
 
 
 
 
 
 
+<!-- Extra JavaScript/CSS added manually in "Settings" tab -->
+<!-- Include jQuery -->
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
 
+<!-- Include Date Range Picker -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
 
-
-
-
+<script>
+    $(document).ready(function(){
+        var date_input=$('input[name="date"]'); //our date input has the name "date"
+        var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
+        date_input.datepicker({
+            format: 'mm/dd/yyyy',
+            container: container,
+            todayHighlight: true,
+            autoclose: true,
+        })
+    })
+</script>
 
 
 <%- include ("./partials/_footer") %>

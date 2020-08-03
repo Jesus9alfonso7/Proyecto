@@ -159,9 +159,38 @@ router.get("/menuAdmin",verifyToken, async (req,res)=>{
     
 })
 
-router.get("/reservarAdmin",verifyToken,(req,res)=>{
-    res.render('reservarAdmin');
+router.get("/reservarAdmin",verifyToken, async (req,res)=>{
+    const reservaciones = await Reservacion.find();
+
+
+    res.render('reservarAdmin', {reservaciones});
    
+})
+
+router.post("/nuevaReserva",async (req,res,next)=>{
+    console.log(req.body);
+    const {date, horaReserva, nombrePersona, apellidoPersona, numeroPersonas, telefono, correo} = req.body;
+    await Reservacion.find();
+
+    const reservacion = new Reservacion ({
+        nombre: nombrePersona, 
+        apellido: apellidoPersona,
+        numPersonas: numeroPersonas, 
+        fecha: date,
+        año: parseInt(date[6]+date[7]+date[8]+date[9]),
+        mes:parseInt(date[0]+date[1]),
+        dia: parseInt(date[3]+date[4]),
+        hora: parseInt(horaReserva[0]+horaReserva[1]),
+        minuto: parseInt(horaReserva[3]+horaReserva[4]),
+        numeroTelefono: telefono,
+        email: correo
+
+    });
+
+
+   await reservacion.save();
+
+   res.redirect('/reservar')
 })
 
 
